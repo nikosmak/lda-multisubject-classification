@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Dashboard Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="pie-chart.css">
+
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+  </head>
+  <style type="text/css">
+
+		input {
+			display: block;
+			width: 100%;
+		}
+
+		input {
+			margin-bottom: 1em;
+		}
+  </style>
+
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">NTUA</a>
+      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Sign out</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="dashboard.html">
+                  <span data-feather="home"></span>
+                  Themes given Documents <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="cross-dataset-validation.html">
+                  <span data-feather="home"></span>
+                  Cross Themes given Documents <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="#">
+                  <span data-feather="home"></span>
+                  Themes given Mixed Documents <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="mixed_closest_documents_dashboard.html">
+                  <span data-feather="home"></span>
+                  Closest of Mixed Documents <span class="sr-only">(current)</span>
+                </a>
+              </li>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              
+            </h6>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Spriger Dataset Dashboard</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+              </div>
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+              </button>
+            </div>
+          </div>
+
+          <form id="upload">
+            <span>
+              <label for="documents-distribution">Upload the themes distributions of all documents</label>
+            <input type="file" id="documents-distribution" accept=".json">
+            </span>
+            <span>
+              <label for="documents-words">Upload the preprocessed words of all documents</label>
+                <input type="file" id="documents-words" accept=".json">
+            </span>
+            <span>
+              <label for="mixed-documents-distribution">Upload mixed documents distribution</label>
+                <input type="file" id="mixed-documents-distribution" accept=".json">
+            </span>
+            <span>
+              <label for="mixed-documents-words">Upload mixed documents words</label>
+                <input type="file" id="mixed-documents-words" accept=".json">
+            </span>
+            <button>Load Docs and Distributions</button>
+            <div>
+              <label for="documents">Επιλέξτε ένα document: </label>
+              <select name="documents" id="documents"></select>
+            </div>
+            
+          </form>
+            <div id="bar-chart"></div>
+            <div class = "column">
+              <h3><label id="terms-frequency-label"></label></h3>
+              <div id="terms-frequency-chart"></div>
+            </div>
+            <div class="column">
+              <h3><label id="themes-given-document-label"></label></h3>
+              <div id="themes-given-document-chart"></div>
+            </div>
+            <!-- Mixed Documents -->
+            <h3><label id="document-1-label"></label></h3>
+            <div id="document-1-chart"></div>
+            <div class = "column">
+              <h3><label id="document-1-terms-frequency-label"></label></h3>
+              <div id="document-1-terms-frequency-chart"></div>
+            </div>
+            <div class="column">
+              <h3><label id="document-1-themes-given-document-label"></label></h3>
+              <div id="document-1-themes-given-document-chart"></div>
+            </div>
+
+            <h3><label id="document-2-label"></label></h3>
+            <div id="document-2-chart"></div>
+            <div class = "column">
+              <h3><label id="document-2-terms-frequency-label"></label></h3>
+              <div id="document-2-terms-frequency-chart"></div>
+            </div>
+            <div class="column">
+              <h3><label id="document-2-themes-given-document-label"></label></h3>
+              <div id="document-2-themes-given-document-chart"></div>
+            </div>
+
+            </body>
+
+        </main>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+	  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="../../../../assets/js/vendor/popper.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="horizontal-barchart.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="pie-chart-new.js" charset="UTF-8"></script>
+
+   
+    <script>
+
+      var documents_distribution;
+      var documents_words;
+      var mixed_documents_distribution;
+      var mixed_documents_words;
+      // Get the form and file field
+      let form = document.querySelector('#upload');
+      let documents_distribution_file = document.querySelector('#documents-distribution');
+      let documents_words_file = document.querySelector('#documents-words');
+      let mixed_documents_distribution_file = document.querySelector('#mixed-documents-distribution');
+      let mixed_documents_words_file = document.querySelector('#mixed-documents-words');
+      
+
+
+  /**
+   * Log the uploaded file to the console
+   * @param {event} Event The file loaded event
+   */
+  function getDocumentsDistributionJson (event) {
+    let str = event.target.result;
+    let json = JSON.parse(str);
+      documents_distribution = json
+    // console.log('string', str);
+    // console.log('json', json);
+  }
+
+      /**
+   * Log the uploaded file to the console
+   * @param {event} Event The file loaded event
+   */
+  function getDocumentsWordsJson (event) {
+    let str = event.target.result;
+    documents_words = JSON.parse(str);
+    
+  }
+
+      /**
+   * Log the uploaded file to the console
+   * @param {event} Event The file loaded event
+   */
+   function getMixedDocumentsDistributionJson (event) {
+    let str = event.target.result;
+    mixed_documents_distribution = JSON.parse(str);
+  }
+
+      /**
+   * Log the uploaded file to the console
+   * @param {event} Event The file loaded event
+   */
+   function getMixedDocumentsWordsJson (event) {
+    let str = event.target.result;
+    mixed_documents_words = JSON.parse(str);
+    populateDocumentsSelection(Object.keys(mixed_documents_words))
+  }
+
+  function getMixedDocuments(document_name){
+    return document_name.split("_")
+  }
+          
+  function populateDocumentsSelection(documents) {
+    documents.sort()
+    $('#documents').find('option').remove()
+    var option = '<option value="">' +"Επιλέξτε έγγραφο"+'</option>';
+    for (var i=0;i<documents.length;i++){
+      option += '<option value="'+ documents[i] + '">' + documents[i] + '</option>';
+    }
+    $('#documents').append(option);
+    
+  }
+
+  var get_themes_given_document = function (document_name) {
+    var stringValue = "This is a String";
+    var p_themes_given_document = documents_distribution[document_name]
+    for (let theme in p_themes_given_document) {
+      if (isString(p_themes_given_document[theme])) {
+        p_themes_given_document[theme] = Number(p_themes_given_document[theme].replaceAll(',','.'))
+      }
+    }
+    return p_themes_given_document;
+  }
+
+  var get_themes_given_mixed_document = function (document_name) {
+    var stringValue = "This is a String";
+    var p_themes_given_mixed_document = mixed_documents_distribution[document_name]
+    for (let theme in p_themes_given_mixed_document) {
+      if (isString(p_themes_given_mixed_document[theme])) {
+        p_themes_given_mixed_document[theme] = Number(p_themes_given_mixed_document[theme].replaceAll(',','.'))
+      }
+    }
+    return p_themes_given_mixed_document;
+  }
+
+  function isString(x) {
+    return Object.prototype.toString.call(x) === "[object String]"
+  }
+
+  function decimalPoints(item, fraction_number) {
+    if (isString(item)) {
+      return parseFloat(item).toFixed(fraction_number)
+    }
+    return item.toFixed(fraction_number);
+    
+  }
+
+      
+
+  /**
+   * Handle submit events
+   * @param  {Event} event The event object
+   */
+  function uploadData (event) {
+
+    // Stop the form from reloading the page
+    event.preventDefault();
+
+    // If there's no file, do nothing
+    if (!documents_distribution_file.value.length) return;
+          if (!documents_words_file.value.length) return;
+
+    // Create a new FileReader() object
+    let documents_distribution_file_reader = new FileReader();
+
+          // Create a new FileReader() object
+    let documents_words_file_reader = new FileReader();
+
+    let mixed_documents_distribution_file_reader = new FileReader()
+
+    let mixed_documents_words_file_reader = new FileReader()
+
+    // Setup the callback event to run when the file is read
+    documents_distribution_file_reader.onload = getDocumentsDistributionJson;
+
+          // Setup the callback event to run when the file is read
+    documents_words_file_reader.onload = getDocumentsWordsJson;
+
+    
+    mixed_documents_distribution_file_reader.onload = getMixedDocumentsDistributionJson
+    mixed_documents_words_file_reader.onload = getMixedDocumentsWordsJson
+    // Read the file
+    documents_distribution_file_reader.readAsText(documents_distribution_file.files[0]);
+    documents_words_file_reader.readAsText(documents_words_file.files[0]);
+    mixed_documents_distribution_file_reader.readAsText(mixed_documents_distribution_file.files[0]);
+    mixed_documents_words_file_reader.readAsText(mixed_documents_words_file.files[0]);
+
+  }
+
+  
+
+  // function showInfo(documentToShow, docs) {
+  // 	update(docs[documentToShow])
+  // }
+
+  
+  
+   var { y, yAxis, x, xAxis, svg } = initBarChart('bar-chart');
+
+   var document_1 = initBarChart('document-1-chart');
+
+   var document_2 = initBarChart('document-2-chart');
+
+   
+
+
+
+  var terms_frequency_donut = donutChart()
+    .width(1000)
+    .height(500)
+    .slicesNamesCssClass('terms-slices')
+    .labelNamesCssClass('terms-labels')
+    .linesCssClass('terms-lines')
+    .transTime(500) // length of transitions in ms
+    .cornerRadius(3) // sets how rounded the corners are on each slice
+    .padAngle(0.015) // effectively dictates the gap between slices
+    .variable('prob')
+    .category('terms');
+  d3.select('#terms-frequency-chart').call(terms_frequency_donut);
+
+var themes_given_document_donut = donutChart()
+    .width(1000)
+    .height(500)
+    .slicesNamesCssClass('themes-slices')
+    .labelNamesCssClass('themes-labels')
+    .linesCssClass('themes-lines')
+    .transTime(500) // length of transitions in ms
+    .cornerRadius(3) // sets how rounded the corners are on each slice
+    .padAngle(0.015) // effectively dictates the gap between slices
+    .variable('prob')
+    .category('themes');
+  d3.select('#themes-given-document-chart').call(themes_given_document_donut);
+
+
+  var document_1_terms_frequency_donut = donutChart()
+    .width(1000)
+    .height(500)
+    .slicesNamesCssClass('document_1-terms-slices')
+    .labelNamesCssClass('document_1-terms-labels')
+    .linesCssClass('document_1-terms-lines')
+    .transTime(500) // length of transitions in ms
+    .cornerRadius(3) // sets how rounded the corners are on each slice
+    .padAngle(0.015) // effectively dictates the gap between slices
+    .variable('prob')
+    .category('terms');
+  d3.select('#document-1-terms-frequency-chart').call(document_1_terms_frequency_donut);
+
+var document_1_themes_given_document_donut = donutChart()
+    .width(1000)
+    .height(500)
+    .slicesNamesCssClass('document_1-themes-slices')
+    .labelNamesCssClass('document_1-themes-labels')
+    .linesCssClass('document_1-themes-lines')
+    .transTime(500) // length of transitions in ms
+    .cornerRadius(3) // sets how rounded the corners are on each slice
+    .padAngle(0.015) // effectively dictates the gap between slices
+    .variable('prob')
+    .category('themes');
+  d3.select('#document-1-themes-given-document-chart').call(document_1_themes_given_document_donut);
+
+  var document_2_terms_frequency_donut = donutChart()
+    .width(1000)
+    .height(500)
+    .slicesNamesCssClass('document_2-terms-slices')
+    .labelNamesCssClass('document_2-terms-labels')
+    .linesCssClass('document_2-terms-lines')
+    .transTime(500) // length of transitions in ms
+    .cornerRadius(3) // sets how rounded the corners are on each slice
+    .padAngle(0.015) // effectively dictates the gap between slices
+    .variable('prob')
+    .category('terms');
+  d3.select('#document-2-terms-frequency-chart').call(document_2_terms_frequency_donut);
+
+var document_2_themes_given_document_donut = donutChart()
+    .width(1000)
+    .height(500)
+    .slicesNamesCssClass('document_2-themes-slices')
+    .labelNamesCssClass('document_2-themes-labels')
+    .linesCssClass('document_2-themes-lines')
+    .transTime(500) // length of transitions in ms
+    .cornerRadius(3) // sets how rounded the corners are on each slice
+    .padAngle(0.015) // effectively dictates the gap between slices
+    .variable('prob')
+    .category('themes');
+  d3.select('#document-2-themes-given-document-chart').call(document_2_themes_given_document_donut);
+
+ 
+  // // Listen for submit events
+  form.addEventListener('submit', uploadData);
+  //update(documents["document-one"])
+  $('select#documents').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+    $('#terms-frequency-label').text("Terms Frequency of: "+$( "#documents option:selected" ).text());
+    $('#themes-given-document-label').text("Subject Distribution of: "+$( "#documents option:selected" ).text());
+    update(mixed_documents_words[valueSelected], y, yAxis, x, xAxis, svg)
+    
+    var mixed_documents_titles_to_selected_document = getMixedDocuments(valueSelected)
+
+    $('#document-1-label').css({'white-space': 'pre'}).text("Document 1: "+mixed_documents_titles_to_selected_document[0]);
+    update(documents_words[mixed_documents_titles_to_selected_document[0]], document_1.y, document_1.yAxis, document_1.x, document_1.xAxis, document_1.svg)
+    $('#document-2-label').css({'white-space': 'pre'}).text("Document 2: "+mixed_documents_titles_to_selected_document[1]);
+    update(documents_words[mixed_documents_titles_to_selected_document[1]], document_2.y, document_2.yAxis, document_2.x, document_2.xAxis, document_2.svg)
+    
+    terms_frequency_donut.data(get_terms_frequency_per_theme(uniques(mixed_documents_words[valueSelected])));
+    
+    themes_given_document_donut.data(get_themes_given_mixed_document(valueSelected))
+
+    $('#document-1-terms-frequency-label').text("Terms Frequency of: "+mixed_documents_titles_to_selected_document[0]);
+    $('#document-1-themes-given-document-label').text("Subject Distribution of: "+mixed_documents_titles_to_selected_document[0]);
+    document_1_terms_frequency_donut.data(get_terms_frequency_per_theme(uniques(documents_words[mixed_documents_titles_to_selected_document[0]])));
+    document_1_themes_given_document_donut.data(get_themes_given_document(mixed_documents_titles_to_selected_document[0]))
+
+    $('#document-2-terms-frequency-label').text("Terms Frequency of: "+mixed_documents_titles_to_selected_document[1]);
+    $('#document-2-themes-given-document-label').text("Subject Distribution of: "+mixed_documents_titles_to_selected_document[1]);
+    document_2_terms_frequency_donut.data(get_terms_frequency_per_theme(uniques(documents_words[mixed_documents_titles_to_selected_document[1]])));
+    document_2_themes_given_document_donut.data(get_themes_given_document(mixed_documents_titles_to_selected_document[1]))
+
+    
+  });
+
+  
+</script>
+  </body>
+</html>

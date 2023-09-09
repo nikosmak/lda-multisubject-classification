@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Dashboard Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="pie-chart.css">
+
+    <!-- Custom styles for this template -->
+    <link href="dashboard.css" rel="stylesheet">
+  </head>
+  <style type="text/css">
+
+		input {
+			display: block;
+			width: 100%;
+		}
+
+		input {
+			margin-bottom: 1em;
+		}
+  </style>
+
+  <body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">NTUA</a>
+      <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">Sign out</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">
+                  <span data-feather="home"></span>
+                  Themes given Documents <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="cross-dataset-validation.html">
+                  <span data-feather="home"></span>
+                  Cross Themes given Documents <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="mixed_documents_dashboard.html">
+                  <span data-feather="home"></span>
+                  Themes given Mixed Documents <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="mixed_closest_documents_dashboard.html">
+                  <span data-feather="home"></span>
+                  Closest of Mixed Documents <span class="sr-only">(current)</span>
+                </a>
+              </li>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              
+            </h6>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+            <h1 class="h2">Spriger Dataset Dashboard</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-outline-secondary">Share</button>
+                <button class="btn btn-sm btn-outline-secondary">Export</button>
+              </div>
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                <span data-feather="calendar"></span>
+                This week
+              </button>
+            </div>
+          </div>
+
+          <form id="upload">
+            <span>
+              <label for="documents-distribution">Upload the themes distributions of all documents</label>
+            <input type="file" id="documents-distribution" accept=".json">
+            </span>
+            <span>
+              <label for="test-documents-words">Upload the test documents with their preprocessed words</label>
+                <input type="file" id="test-documents-words" accept=".json">
+            </span>
+            <span>
+              <label for="documents-words">Upload all the documents with their preprocessed words</label>
+                <input type="file" id="documents-words" accept=".json">
+            </span>
+            <span>
+              <label for="closest-documents">Upload the closest documents distances from Springer</label>
+                <input type="file" id="closest-documents" accept=".json">
+            </span>
+            <button>Load Docs and Distributions</button>
+            <div>
+              <label for="documents">Επιλέξτε ένα document: </label>
+              <select name="documents" id="documents"></select>
+            </div>
+            
+          </form>
+            <div id="bar-chart"></div>
+            <div class = "column">
+              <h3><label id="terms-frequency-label"></label></h3>
+              <div id="terms-frequency-chart"></div>
+            </div>
+            <div class="column">
+              <h3><label id="themes-given-document-label"></label></h3>
+              <div id="themes-given-document-chart"></div>
+            </div>
+            <!-- Closest Documents -->
+            <h3><label id="closest-document-1-label"></label></h3>
+            <div id="closest-document-1-chart"></div>
+            <div class = "column">
+              <h3><label id="closest-document-1-terms-frequency-label"></label></h3>
+              <div id="closest-document-1-terms-frequency-chart"></div>
+            </div>
+            <div class="column">
+              <h3><label id="closest-document-1-themes-given-document-label"></label></h3>
+              <div id="closest-document-1-themes-given-document-chart"></div>
+            </div>
+
+            <h3><label id="closest-document-2-label"></label></h3>
+            <div id="closest-document-2-chart"></div>
+            <div class = "column">
+              <h3><label id="closest-document-2-terms-frequency-label"></label></h3>
+              <div id="closest-document-2-terms-frequency-chart"></div>
+            </div>
+            <div class="column">
+              <h3><label id="closest-document-2-themes-given-document-label"></label></h3>
+              <div id="closest-document-2-themes-given-document-chart"></div>
+            </div>
+
+            <h3><label id="closest-document-3-label"></label></h3>
+            <div id="closest-document-3-chart"></div>
+            <div class = "column">
+              <h3><label id="closest-document-3-terms-frequency-label"></label></h3>
+              <div id="closest-document-3-terms-frequency-chart"></div>
+            </div>
+            <div class="column">
+              <h3><label id="closest-document-3-themes-given-document-label"></label></h3>
+              <div id="closest-document-3-themes-given-document-chart"></div>
+            </div>
+            </body>
+            
+
+        
+          
+        </main>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+	  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="../../../../assets/js/vendor/popper.min.js"></script>
+    <script src="dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="horizontal-barchart.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="pie-chart-new.js" charset="UTF-8"></script>
+
+   
+    <script>
+
+      var documents_distribution;
+      var documents_words;
+      var test_documents_words;
+      var closest_documents;
+      // Get the form and file field
+      let form = document.querySelector('#upload');
+      let documents_distribution_file = document.querySelector('#documents-distribution');
+      let test_documents_words_file = document.querySelector('#test-documents-words');
+      let documents_words_file = document.querySelector('#documents-words');
+      let closest_documents_file = document.querySelector('#closest-documents');
+
+
+  /**
+   * Log the uploaded file to the console
+   * @param {event} Event The file loaded event
+   */
+  function getDocumentsDistributionJson (event) {
+    let str = event.target.result;
+    let json = JSON.parse(str);
+      documents_distribution = json
+    // console.log('string', str);
+    // console.log('json', json);
+  }
+
+      /**
+   * Log the uploaded file to the console
+   * @param {event} Event The file loaded event
+   */
+  function getDocumentsWordsJson (event) {
+    let str = event.target.result;
+    documents_words = JSON.parse(str);
+  }
+
+  function getTestDocumentsWordsJson (event) {
+    let str = event.target.result;
+    test_documents_words = JSON.parse(str);
+    populateDocumentsSelection(Object.keys(test_documents_words))
+  }
+
+      /**
+   * Log the uploaded file to the console
+   * @param {event} Event The file loaded event
+   */
+   function getClosestDocumentsJson (event) {
+    let str = event.target.result;
+    closest_documents = JSON.parse(str);
+  }
+
+  function getClosestDocuments(document_name){
+    var closest_documents_dict = closest_documents[document_name]
+    var closest_documents_titles = [];
+    var closest_documents_distances = [];
+    for (const [key, value] of Object.entries(closest_documents_dict)) {
+      closest_documents_titles.push(key)
+      closest_documents_distances.push(value)
+    }
+    return {'closest_documents_titles':closest_documents_titles, 
+            'closest_documents_distances':closest_documents_distances}
+  }
+          
+  function populateDocumentsSelection(documents) {
+    documents.sort()
+    $('#documents').find('option').remove()
+    var option = '<option value="">' +"Επιλέξτε έγγραφο"+'</option>';
+    for (var i=0;i<documents.length;i++){
+      option += '<option value="'+ documents[i] + '">' + documents[i] + '</option>';
+    }
+    $('#documents').append(option);
+    
+  }
+
+  var get_themes_given_document = function (document_name) {
+    var stringValue = "This is a String";
+    var p_themes_given_document = documents_distribution[document_name]
+    for (let theme in p_themes_given_document) {
+      if (isString(p_themes_given_document[theme])) {
+        p_themes_given_document[theme] = Number(p_themes_given_document[theme].replaceAll(',','.'))
+      }
+    }
+    return p_themes_given_document;
+  }
+
+  function isString(x) {
+    return Object.prototype.toString.call(x) === "[object String]"
+  }
+
+  function decimalPoints(item, fraction_number) {
+    if (isString(item)) {
+      return parseFloat(item).toFixed(fraction_number)
+    }
+    return item.toFixed(fraction_number);
+    
+  }
+
+      
+
+  /**
+   * Handle submit events
+   * @param  {Event} event The event object
+   */
+  function uploadData (event) {
+
+    // Stop the form from reloading the page
+    event.preventDefault();
+
+    // If there's no file, do nothing
+    if (!documents_distribution_file.value.length) return;
+          if (!documents_words_file.value.length) return;
+
+    
+
+    // Create a new FileReader() object
+    let documents_distribution_file_reader = new FileReader();
+
+    let test_documents_words_file_reader = new FileReader();
+
+          // Create a new FileReader() object
+    let documents_words_file_reader = new FileReader();
+
+    let closest_documents_file_reader = new FileReader();
+
+    // Setup the callback event to run when the file is read
+    documents_distribution_file_reader.onload = getDocumentsDistributionJson;
+
+          // Setup the callback event to run when the file is read
+    documents_words_file_reader.onload = getDocumentsWordsJson;
+
+    test_documents_words_file_reader.onload = getTestDocumentsWordsJson;
+
+    closest_documents_file_reader.onload = getClosestDocumentsJson;
+
+    // Read the file
+    documents_distribution_file_reader.readAsText(documents_distribution_file.files[0]);
+    test_documents_words_file_reader.readAsText(test_documents_words_file.files[0]);
+    documents_words_file_reader.readAsText(documents_words_file.files[0]);
+    closest_documents_file_reader.readAsText(closest_documents_file.files[0]);
+
+  }
+
+  
+
+  // function showInfo(documentToShow, docs) {
+  // 	update(docs[documentToShow])
+  // }
+
+  
+  
+   var { y, yAxis, x, xAxis, svg } = initBarChart('bar-chart');
+
+   var closests_document_1 = initBarChart('closest-document-1-chart');
+
+   var closests_document_2 = initBarChart('closest-document-2-chart');
+
+   var closests_document_3 = initBarChart('closest-document-3-chart');
+
+
+
+  var terms_frequency_donut = donutChart()
+    .width(1000)
+    .height(500)
+    .slicesNamesCssClass('terms-slices')
+    .labelNamesCssClass('terms-labels')
+    .linesCssClass('terms-lines')
+    .transTime(500) // length of transitions in ms
+    .cornerRadius(3) // sets how rounded the corners are on each slice
+    .padAngle(0.015) // effectively dictates the gap between slices
+    .variable('prob')
+    .category('terms');
+  d3.select('#terms-frequency-chart').call(terms_frequency_donut);
+
+var themes_given_document_donut = donutChart()
+    .width(1000)
+    .height(500)
+    .slicesNamesCssClass('themes-slices')
+    .labelNamesCssClass('themes-labels')
+    .linesCssClass('themes-lines')
+    .transTime(500) // length of transitions in ms
+    .cornerRadius(3) // sets how rounded the corners are on each slice
+    .padAngle(0.015) // effectively dictates the gap between slices
+    .variable('prob')
+    .category('themes');
+  d3.select('#themes-given-document-chart').call(themes_given_document_donut);
+
+
+  var closest_document_1_terms_frequency_donut = donutChart()
+    .width(1000)
+    .height(500)
+    .slicesNamesCssClass('closest_document_1-terms-slices')
+    .labelNamesCssClass('closest_document_1-terms-labels')
+    .linesCssClass('closest_document_1-terms-lines')
+    .transTime(500) // length of transitions in ms
+    .cornerRadius(3) // sets how rounded the corners are on each slice
+    .padAngle(0.015) // effectively dictates the gap between slices
+    .variable('prob')
+    .category('terms');
+  d3.select('#closest-document-1-terms-frequency-chart').call(closest_document_1_terms_frequency_donut);
+
+var closest_document_1_themes_given_document_donut = donutChart()
+    .width(1000)
+    .height(500)
+    .slicesNamesCssClass('closest_document_1-themes-slices')
+    .labelNamesCssClass('closest_document_1-themes-labels')
+    .linesCssClass('closest_document_1-themes-lines')
+    .transTime(500) // length of transitions in ms
+    .cornerRadius(3) // sets how rounded the corners are on each slice
+    .padAngle(0.015) // effectively dictates the gap between slices
+    .variable('prob')
+    .category('themes');
+  d3.select('#closest-document-1-themes-given-document-chart').call(closest_document_1_themes_given_document_donut);
+
+  var closest_document_2_terms_frequency_donut = donutChart()
+    .width(1000)
+    .height(500)
+    .slicesNamesCssClass('closest_document_2-terms-slices')
+    .labelNamesCssClass('closest_document_2-terms-labels')
+    .linesCssClass('closest_document_2-terms-lines')
+    .transTime(500) // length of transitions in ms
+    .cornerRadius(3) // sets how rounded the corners are on each slice
+    .padAngle(0.015) // effectively dictates the gap between slices
+    .variable('prob')
+    .category('terms');
+  d3.select('#closest-document-2-terms-frequency-chart').call(closest_document_2_terms_frequency_donut);
+
+var closest_document_2_themes_given_document_donut = donutChart()
+    .width(1000)
+    .height(500)
+    .slicesNamesCssClass('closest_document_2-themes-slices')
+    .labelNamesCssClass('closest_document_2-themes-labels')
+    .linesCssClass('closest_document_2-themes-lines')
+    .transTime(500) // length of transitions in ms
+    .cornerRadius(3) // sets how rounded the corners are on each slice
+    .padAngle(0.015) // effectively dictates the gap between slices
+    .variable('prob')
+    .category('themes');
+  d3.select('#closest-document-2-themes-given-document-chart').call(closest_document_2_themes_given_document_donut);
+
+  var closest_document_3_terms_frequency_donut = donutChart()
+    .width(1000)
+    .height(500)
+    .slicesNamesCssClass('closest_document_3-terms-slices')
+    .labelNamesCssClass('closest_document_3-terms-labels')
+    .linesCssClass('closest_document_3-terms-lines')
+    .transTime(500) // length of transitions in ms
+    .cornerRadius(3) // sets how rounded the corners are on each slice
+    .padAngle(0.015) // effectively dictates the gap between slices
+    .variable('prob')
+    .category('terms');
+  d3.select('#closest-document-3-terms-frequency-chart').call(closest_document_3_terms_frequency_donut);
+
+var closest_document_3_themes_given_document_donut = donutChart()
+    .width(1000)
+    .height(500)
+    .slicesNamesCssClass('closest_document_3-themes-slices')
+    .labelNamesCssClass('closest_document_3-themes-labels')
+    .linesCssClass('closest_document_3-themes-lines')
+    .transTime(500) // length of transitions in ms
+    .cornerRadius(3) // sets how rounded the corners are on each slice
+    .padAngle(0.015) // effectively dictates the gap between slices
+    .variable('prob')
+    .category('themes');
+  d3.select('#closest-document-3-themes-given-document-chart').call(closest_document_3_themes_given_document_donut);
+
+
+  // // Listen for submit events
+  form.addEventListener('submit', uploadData);
+  //update(documents["document-one"])
+  $('select#documents').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+    $('#terms-frequency-label').text("Terms Frequency of: "+$( "#documents option:selected" ).text());
+    $('#themes-given-document-label').text("Subject Distribution of: "+$( "#documents option:selected" ).text());
+    update(documents_words[valueSelected], y, yAxis, x, xAxis, svg)
+    
+    var closest_documents_to_selected_document = getClosestDocuments(valueSelected)
+    var closest_documents_titles_to_selected_document = closest_documents_to_selected_document['closest_documents_titles']
+    var closest_documents_distances_to_selected_document = closest_documents_to_selected_document['closest_documents_distances']
+
+    $('#closest-document-1-label').css({'white-space': 'pre'}).text("Closest Document 1: "+closest_documents_titles_to_selected_document[0]+"\nwith distance: "+decimalPoints(closest_documents_distances_to_selected_document[0],4)+ " to "+valueSelected+".");
+    update(documents_words[closest_documents_titles_to_selected_document[0]], closests_document_1.y, closests_document_1.yAxis, closests_document_1.x, closests_document_1.xAxis, closests_document_1.svg)
+    $('#closest-document-2-label').css({'white-space': 'pre'}).text("Closest Document 2: "+closest_documents_titles_to_selected_document[1]+"\nwith distance: "+decimalPoints(closest_documents_distances_to_selected_document[1],4)+ " to "+valueSelected+".");
+    update(documents_words[closest_documents_titles_to_selected_document[1]], closests_document_2.y, closests_document_2.yAxis, closests_document_2.x, closests_document_2.xAxis, closests_document_2.svg)
+    $('#closest-document-3-label').css({'white-space': 'pre'}).text("Closest Document 3: "+closest_documents_titles_to_selected_document[2]+"\nwith distance: "+decimalPoints(closest_documents_distances_to_selected_document[2],4)+ " to "+valueSelected+".");
+    update(documents_words[closest_documents_titles_to_selected_document[2]], closests_document_3.y, closests_document_3.yAxis, closests_document_3.x, closests_document_3.xAxis, closests_document_3.svg)
+
+    terms_frequency_donut.data(get_terms_frequency_per_theme(uniques(documents_words[valueSelected])));
+    
+    themes_given_document_donut.data(get_themes_given_document(valueSelected))
+
+    $('#closest-document-1-terms-frequency-label').text("Terms Frequency of: "+closest_documents_titles_to_selected_document[0]);
+    $('#closest-document-1-themes-given-document-label').text("Subject Distribution of: "+closest_documents_titles_to_selected_document[0]);
+    closest_document_1_terms_frequency_donut.data(get_terms_frequency_per_theme(uniques(documents_words[closest_documents_titles_to_selected_document[0]])));
+    closest_document_1_themes_given_document_donut.data(get_themes_given_document(closest_documents_titles_to_selected_document[0]))
+
+    $('#closest-document-2-terms-frequency-label').text("Terms Frequency of: "+closest_documents_titles_to_selected_document[1]);
+    $('#closest-document-2-themes-given-document-label').text("Subject Distribution of: "+closest_documents_titles_to_selected_document[1]);
+    closest_document_2_terms_frequency_donut.data(get_terms_frequency_per_theme(uniques(documents_words[closest_documents_titles_to_selected_document[1]])));
+    closest_document_2_themes_given_document_donut.data(get_themes_given_document(closest_documents_titles_to_selected_document[1]))
+
+    $('#closest-document-3-terms-frequency-label').text("Terms Frequency of: "+closest_documents_titles_to_selected_document[2]);
+    $('#closest-document-3-themes-given-document-label').text("Subject Distribution of: "+closest_documents_titles_to_selected_document[2]);
+    closest_document_3_terms_frequency_donut.data(get_terms_frequency_per_theme(uniques(documents_words[closest_documents_titles_to_selected_document[2]])));
+    closest_document_3_themes_given_document_donut.data(get_themes_given_document(closest_documents_titles_to_selected_document[2]))
+    
+  });
+
+  
+</script>
+  </body>
+</html>
