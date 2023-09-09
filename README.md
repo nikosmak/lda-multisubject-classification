@@ -10,11 +10,10 @@ Be patient because for the LDA model to be trained and the procedure to be compl
 ## Step 1
 Install python 3.8.
 
-Install dependencies
-sudo apt install python3.8-distutils
+### Install pip and dependencies (Mac OSX and Linux)
+```sudo apt install python3.8-distutils```
 
-wget https://bootstrap.pypa.io/get-pip.py
-python3.8 get-pip.py
+```wget https://bootstrap.pypa.io/get-pip.py python3.8 get-pip.py```
 
 * set PATH so it includes user's private bin if it exists
 ```
