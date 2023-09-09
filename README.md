@@ -47,3 +47,11 @@ For the training process to be initiated and the model to be trained the files:
 <b>springer_lda.model</b> and <b>springer.dictionary</b> <b>must be deleted if they exist</b>. 
 
 If they exist, the training process and the dictionary initialization will be skipped since the cached ones will be used.
+It is important to note that the cached model and dictionaries references are kept in separate files
+which are specific per each OS.
+
+* For Mac OSX in the folder: /var/folders/6c/cbvl4hld7fnb2tq6ddg50nn40000gn/T
+* For Linux in the folder: /tmp
+For Mac OSX and Linux, the contents of the aforementioned folders are deleted upon reboot.
+So if you want to use the cached models you should back up the contents of those folders and restore
+them when you want to run the algorithm.
