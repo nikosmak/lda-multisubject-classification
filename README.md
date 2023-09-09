@@ -1,5 +1,10 @@
 # lda-multisubject-classification
-Multisubject analysis and classification of books and book collections, based on a subject term vocabulary and the Latent Dirichlet Allocation
+Multisubject analysis and classification of books and book collections, based on a subject term vocabulary and the Latent Dirichlet Allocation.
+
+## Notes for researchers
+The current algorithm is contained in the jupyter notebook: LDA_Springer_new_formulas.ipynb.
+The algorithm produces probability distributions of 26 subjects from the Springer's dataset.
+Be patient because for the LDA model to be trained and the procedure to be completed and the subject distributions of documents to be produced a certain amount of time will be needed. 
 
 # LDA Installation document.
 ## Step 1
