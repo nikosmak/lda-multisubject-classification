@@ -17,9 +17,11 @@ wget https://bootstrap.pypa.io/get-pip.py
 python3.8 get-pip.py
 
 * set PATH so it includes user's private bin if it exists
+```
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+```
 
 ## Step 2
 For Windows: In the root workspace folder run install-libs.cmd
